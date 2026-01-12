@@ -20,6 +20,7 @@ pipeline {
                       maven:3.9.9-eclipse-temurin-17 \
                       mvn clean package -DskipTests
                     '''
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
