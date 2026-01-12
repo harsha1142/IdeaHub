@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/IPDgtl/Ideahub.git'
+                    url: 'https://github.com/harsha1142/IdeaHub'
             }
         }
 
