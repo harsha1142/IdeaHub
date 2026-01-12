@@ -1,0 +1,43 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ideahub-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ideahub
+      MYSQL_USER: ideahub
+      MYSQL_PASSWORD: ideahub
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend/demo
+    container_name: ideahub-backend
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend/ideahub
+    container_name: ideahub-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql-data:

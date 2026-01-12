@@ -1,0 +1,285 @@
+/* ---------- DESIGN TOKENS ---------- */
+
+:root {
+  --bg-main: linear-gradient(180deg, #f8fafc, #eef2f7);
+  --bg-card: #ffffff;
+  --bg-muted: #f9fafb;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+
+  --primary: #4f46e5;
+  --primary-dark: #4338ca;
+  --danger: #dc2626;
+  --danger-dark: #b91c1c;
+
+  --border-light: #e5e7eb;
+  --border-input: #d1d5db;
+
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.1);
+
+  --transition-fast: 0.15s ease;
+  --transition-med: 0.25s ease;
+}
+
+/* ---------- GLOBAL ---------- */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* ---------- LAYOUT ---------- */
+
+.page,
+.ideas-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.ideas-page {
+  min-height: 100vh;
+}
+
+/* ---------- CARDS ---------- */
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-md), var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-med), box-shadow var(--transition-med);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), var(--shadow-md);
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.card p {
+  margin: 6px 0;
+}
+
+/* ---------- COMMENTS ---------- */
+
+.comment-card {
+  background: var(--bg-muted);
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+  border: 1px solid var(--border-light);
+}
+
+/* ---------- TEXT ---------- */
+
+.muted {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* ---------- ACTIONS ---------- */
+
+.actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- BUTTONS ---------- */
+
+.btn {
+  padding: 9px 18px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  background: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #6366f1, var(--primary));
+  color: white;
+}
+
+.btn.primary:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.45);
+}
+
+.btn.danger {
+  background: linear-gradient(135deg, #ef4444, var(--danger));
+  color: white;
+}
+
+.btn.danger:hover {
+  background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+  box-shadow: 0 10px 22px rgba(220, 38, 38, 0.45);
+}
+
+.btn.small {
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+/* ---------- INPUTS ---------- */
+
+input,
+textarea {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-input);
+  font-size: 14px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+/* ---------- AUTH ---------- */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 380px;
+  padding: 32px;
+  background: white;
+  border-radius: 20px;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+
+
+
+.auth-card h1 {
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+/* ---------- GRID ---------- */
+
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+
+.name-row input {
+  flex: 1;
+}
+
+.ideas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  gap: 16px;
+}
+
+.ideas-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.page .card {
+  padding: 28px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px; 
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  background: #f9fafb;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+
+.auth-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px; /* 👈 smaller than card radius */
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  background: #f9fafb;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.auth-card input:focus {
+  background: white;
+  border-color: #6366f1;
+  box-shadow: inset 0 0 0 1px #6366f1;
+}
