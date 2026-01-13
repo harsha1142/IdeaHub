@@ -7,12 +7,13 @@ pipeline {
             steps {
                 sh '''
                   docker run --rm \
-                    -v "$PWD/backend":/app \
-                    -w /app/demo \
+                    -v "$PWD":/workspace \
+                    -w /workspace/backend/demo \
                     maven:3.9.9-eclipse-temurin-17 \
                     mvn clean package -DskipTests
                 '''
             }
         }
+
     }
 }
