@@ -1,17 +1,17 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Build Backend (Maven)') {
-            steps {
-                sh '''
-                  docker run --rm \
-                    -v "$PWD":/workspace \
-                    -w /workspace/backend/demo \
-                    maven:3.9.9-eclipse-temurin-17 \
-                    mvn clean package -DskipTests
-                '''
-            }
-        }
+stage('Debug Workspace') {
+    steps {
+        sh '''
+          docker run --rm \
+            -v "$PWD":/workspace \
+            maven:3.9.9-eclipse-temurin-17 \
+            sh -c "
+              echo '--- workspace ---';
+              ls -la /workspace;
+              echo '--- backend ---';
+              ls -la /workspace/backend || true;
+              echo '--- backend/demo ---';
+              ls -la /workspace/backend/demo || true;
+            "
+        '''
     }
 }
