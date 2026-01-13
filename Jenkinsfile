@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Build Backend (Maven)') {
             steps {
                 sh '''
@@ -14,6 +13,5 @@ pipeline {
                 '''
             }
         }
-
     }
 }
