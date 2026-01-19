@@ -28,7 +28,7 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 echo 'Building frontend'
-                dir('frontend') {
+                dir('frontend/ideahub') {
                     sh 'node -v'
                     sh 'npm -v'
                     sh 'npm install'
