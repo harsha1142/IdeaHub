@@ -4,6 +4,7 @@ pipeline {
     tools {
         jdk 'jdk17'
         maven 'maven3'
+        nodejs 'node18'
     }
 
     stages {
@@ -17,10 +18,32 @@ pipeline {
 
         stage('Build Backend') {
             steps {
+                echo 'Building backend'
                 dir('backend/demo') {
                     sh 'mvn clean install -DskipTests'
                 }
             }
+        }
+
+        stage('Build Frontend') {
+            steps {
+                echo 'Building frontend'
+                dir('frontend') {
+                    sh 'node -v'
+                    sh 'npm -v'
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Backend + Frontend build successful'
+        }
+        failure {
+            echo 'Build failed'
         }
     }
 }
