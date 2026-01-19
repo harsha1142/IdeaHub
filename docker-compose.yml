@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   mysql:
     image: mysql:8.0
@@ -39,5 +41,19 @@ services:
     ports:
       - "3000:80"
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: ideahub-jenkins
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+
 volumes:
   mysql-data:
+  jenkins_home:
