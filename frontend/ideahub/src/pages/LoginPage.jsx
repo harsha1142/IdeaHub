@@ -22,13 +22,22 @@ export default function LoginPage() {
 
     login({ email, password })
       .then((res) => {
-        localStorage.setItem("userId", res.data.userId);
-        localStorage.setItem("email", res.data.email);
-        localStorage.setItem("fullName", res.data.fullName);
+        console.log("LOGIN PAGE RECIVED:", res);
 
+        if(!res || !res.token){
+          throw new Error("Invalid login response");
+        }
+        //jwt 
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("userId", res.userId);
+        localStorage.setItem("email", res.email);
+        localStorage.setItem("username", res.username);
+
+        //login
         navigate("/ideas");
       })
       .catch((err) => {
+        console.log("LOGIN ERROR:", err);
         if (err.response?.status === 401) {
           setError("Invalid email or password");
         } else {

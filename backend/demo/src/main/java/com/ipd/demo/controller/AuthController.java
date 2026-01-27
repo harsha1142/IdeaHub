@@ -5,6 +5,7 @@ import com.ipd.demo.dto.request.RegisterRequestDTO;
 import com.ipd.demo.dto.response.LoginResponseDTO;
 import com.ipd.demo.entity.Users;
 import com.ipd.demo.repository.UsersRepository;
+import com.ipd.demo.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UsersRepository usersRepository;
+    private final JwtUtil jwtUtil;
 
-    public AuthController(UsersRepository usersRepository) {
+
+    public AuthController(UsersRepository usersRepository, JwtUtil jwtUtil) {
         this.usersRepository = usersRepository;
+        this.jwtUtil = jwtUtil;
     }
 
     // LOGIN
@@ -33,12 +37,14 @@ public class AuthController {
                     .status(401)
                     .body("Invalid email or password");
         }
+        String token = jwtUtil.generateToken(user.getEmail());
 
         return ResponseEntity.ok(
                 new LoginResponseDTO(
                         user.getId(),
                         user.getEmail(),
-                        user.getFirstName() + " " + user.getLastName()
+                        user.getFirstName() + " " + user.getLastName(),
+                        token
                 )
         );
     }
@@ -61,11 +67,14 @@ public class AuthController {
 
         usersRepository.save(user);
 
+        String token = jwtUtil.generateToken(user.getEmail());
+
         return ResponseEntity.ok(
                 new LoginResponseDTO(
                         user.getId(),
                         user.getEmail(),
-                        user.getFirstName() + " " + user.getLastName()
+                        user.getFirstName() + " " + user.getLastName(),
+                        token
                 )
         );
     }
