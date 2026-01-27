@@ -1,4 +1,4 @@
-version: "3.8"
+
 
 services:
   mysql:
@@ -21,7 +21,7 @@ services:
       retries: 5
 
   backend:
-    build: ./backend/demo
+    image: ideahub-backend:latest
     container_name: ideahub-backend
     restart: always
     depends_on:
@@ -33,7 +33,7 @@ services:
       - "8080:8080"
 
   frontend:
-    build: ./frontend/ideahub
+    image: ideahub-frontend:latest
     container_name: ideahub-frontend
     restart: always
     depends_on:
@@ -42,7 +42,9 @@ services:
       - "3000:80"
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
     container_name: ideahub-jenkins
     restart: unless-stopped
     ports:
