@@ -18,7 +18,6 @@ pipeline {
 
         stage('Build Backend') {
             steps {
-                echo 'Building backend'
                 dir('backend/demo') {
                     sh 'mvn clean install -DskipTests'
                 }
@@ -27,23 +26,36 @@ pipeline {
 
         stage('Build Frontend') {
             steps {
-                echo 'Building frontend'
                 dir('frontend/ideahub') {
-                    sh 'node -v'
-                    sh 'npm -v'
                     sh 'npm install'
                     sh 'npm run build'
                 }
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                echo 'Building Docker images'
+                sh 'docker build -t ideahub-backend:latest ./backend/demo'
+                sh 'docker build -t ideahub-frontend:latest ./frontend/ideahub'
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                echo '🚀 Deploying application'
+                sh 'docker compose down'
+                sh 'docker compose up -d'
             }
         }
     }
 
     post {
         success {
-            echo 'Backend + Frontend build successful'
+            echo 'CI/CD pipeline completed successfully'
         }
         failure {
-            echo 'Build failed'
+            echo 'CI/CD pipeline failed'
         }
     }
 }
